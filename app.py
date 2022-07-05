@@ -7,14 +7,16 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapS
 from boto.s3.connection import S3Connection
 
 s3 = S3Connection(os.environ["channel_access_token"], os.environ['channel_secret'])
+print('-------------------------')
 print(s3)
+print('-------------------------')
 # # LINE 聊天機器人的基本資料
 # config = configparser.ConfigParser()
 # config.read('config.ini')
 # print(config.get('line-bot', 'channel_access_token'))
 
-line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
-handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
+# line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
+# handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
 
 app = Flask(__name__)
 
