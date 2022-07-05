@@ -1,32 +1,36 @@
-import json
+import configparser
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapSendMessage
 
-with open("/Users/willy/Downloads/line_bot/channel.json") as f:
-    channel = json.load(f)
-app = Flask(__name__)
+# LINE 聊天機器人的基本資料
+config = configparser.ConfigParser()
+config.read('config.ini')
+print(config.get('line-bot', 'channel_access_token'))
 
-# Channel
-len_bot_api = LineBotApi(channel['token'])
-handler = WebhookHandler(channel['secret'])
+line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
+handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
+
+app = Flask(__name__)
 
 
 # 監聽所有來自 /callback 的 Post Request
-@app.route("/callback", methods=['POST'])
+@app.route("/callback", methods=['POST','GET'])
 def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
+    # # get X-Line-Signature header value
+    # # signature = request.headers['X-Line-Signature']
+    # # get request body as text
+    # body = request.get_data(as_text=True)
+    # app.logger.info("Request body: " + body)
+    # # handle webhook body
+    # try:
+    #     print(body, signature)
+    #     handler.handle(body, signature)
+    # except InvalidSignatureError:
+    #     abort(400)
+    # return 'OK'
+    return 200
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
