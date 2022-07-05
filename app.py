@@ -4,21 +4,14 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapSendMessage
-from boto.s3.connection import S3Connection
 
-s3 = S3Connection(os.environ["channel_access_token"], os.environ['channel_secret'])
-print('-------------------------')
-print(s3,type(s3))
-print(os.environ["channel_access_token"])
-print(os.environ['channel_secret'])
-print('-------------------------')
 # # LINE 聊天機器人的基本資料
 # config = configparser.ConfigParser()
 # config.read('config.ini')
 # print(config.get('line-bot', 'channel_access_token'))
 
-# line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
-# handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
+line_bot_api = LineBotApi(os.environ["channel_access_token"])
+handler = WebhookHandler(os.environ['channel_secret'])
 
 app = Flask(__name__)
 
