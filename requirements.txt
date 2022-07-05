@@ -1,4 +1,3 @@
-os
 Flask
 gunicorn
 boto
