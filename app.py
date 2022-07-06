@@ -4,6 +4,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapSendMessage
+from stock import *
 
 # # LINE 聊天機器人的基本資料
 # config = configparser.ConfigParser()
@@ -43,6 +44,7 @@ def handle_message(event):
     print('-----------------------')
     message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
+
 
 
 if __name__ == "__main__":
