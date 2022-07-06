@@ -42,18 +42,19 @@ def handle_message(event):
     print(type(event))
     print(event)
     print('-----------------------')
-    txt = event.message.text
-    # line_bot_api.reply_message(event.reply_token, message)
-    if txt.isdigit() and len(txt)==4:
+    userSend = event.message.text
+    if userSend.isdigit() and len(userSend)==4:
         print('hhhhhhhhh')
-        data = Get_StockPrice(message)
+        data = Get_StockPrice(userSend)
         info = '開盤:{}\n收盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
             data.Open, data.Close, data.High, data.Low, data.Volume)
-        line_bot_api.reply_message(event.reply_token, info)
-    else:
-        message = TextSendMessage(text=txt)
-        line_bot_api.reply_message(event.reply_token, '你可以傳個股票代碼試試')
+        message = TextSendMessage(text=info)
 
+    else:
+        print('jjjjjjjjjjj')
+        message = TextSendMessage(text='你可以傳個股票代碼試試')
+    
+    line_bot_api.reply_message(event.reply_token, message)
 
 
 
