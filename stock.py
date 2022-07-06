@@ -25,10 +25,11 @@ def Get_StockPrice(Symbol, Date=str(date.today()).replace('-','')):
 
     StockPrice = StockPrice.set_index('Date', drop = True)
     StockPrice = StockPrice[['Open','High','Low','Close','Volume']]
-    
+    # if len(Date) < 8:
     print(StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:])
-    return StockPrice
+    return StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:]
 
 if __name__ == '__main__':
 
     data = Get_StockPrice('2330','20220531')
+    print(data.Open)
