@@ -38,20 +38,14 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # event->使用者資料
-    print('-----------------------')
-    print(type(event))
-    print(event)
-    print('-----------------------')
     userSend = event.message.text
     if userSend.isdigit() and len(userSend)==4:
-        print('hhhhhhhhh')
         data = Get_StockPrice(userSend)
         info = '開盤:{}\n收盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
             data.Open, data.Close, data.High, data.Low, data.Volume)
         message = TextSendMessage(text=info)
 
     else:
-        print('jjjjjjjjjjj')
         message = TextSendMessage(text='你可以傳個股票代碼試試')
     
     line_bot_api.reply_message(event.reply_token, message)
