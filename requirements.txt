@@ -1,3 +1,9 @@
 Flask
 gunicorn
 line-bot-sdk
+
+pandas
+numpy
+json
+requests
+datetime
