@@ -43,7 +43,7 @@ def handle_message(event):
     print(event)
     print('-----------------------')
     message = TextSendMessage(text=event.message.text)
-    # line_bot_api.reply_message(event.reply_token, message)
+    line_bot_api.reply_message(event.reply_token, message)
     if message.isdigit() and len(message)==4:
         data = Get_StockPrice(message)
         info = '開盤:{}\n收盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
