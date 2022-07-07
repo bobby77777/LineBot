@@ -41,6 +41,10 @@ def handle_message(event):
     userSend = event.message.text
     if userSend.isdigit() and len(userSend)==4:
         data = Get_StockPrice(userSend,'20220531')
+        print('======================')
+        print(data)
+        print(type(data))
+        print('======================')
         if type(data) == str():
             info = '請輸入正確的股票代號'
         else:
