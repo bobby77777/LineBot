@@ -44,7 +44,7 @@ def handle_message(event):
         print('---------------------')
         print(data)
         print('---------------------')
-        if data:
+        if data != None:
             info = '收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
                 data[0], data[1], data[2], data[3], data[4])
         else:
