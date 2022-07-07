@@ -30,7 +30,7 @@ def Get_StockPrice(Symbol, Date=str(date.today()).replace('-','')):
         print(StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:])
         return StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:]
     except:
-        return None
+        return 'incorrect'
 
 if __name__ == '__main__':
 
