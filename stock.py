@@ -11,7 +11,6 @@ def Get_StockPrice(Symbol, Date=str(date.today()).replace('-','')):
     data = requests.get(url).text
     json_data = json.loads(data)
     Stock_data = json_data['data']
-    print(Stock_data)
     StockPrice = pd.DataFrame(Stock_data, columns = ['Date','Volume','Volume_Cash','Open','High','Low','Close','Change','Order'])
     StockPrice['Date'] = StockPrice['Date'].str.replace('/','').astype(int) + 19110000
     StockPrice['Date'] = pd.to_datetime(StockPrice['Date'].astype(str))
