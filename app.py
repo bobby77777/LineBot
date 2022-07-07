@@ -40,10 +40,11 @@ def handle_message(event):
     # event->使用者資料
     userSend = event.message.text
     if userSend.isdigit() and len(userSend)==4:
-        data = Get_StockPrice(userSend,'20220531').values[0]
-        info = '收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
-            data[0], data[1], data[2], data[3], data[4])
-        if info == '':
+        if data:
+            data = Get_StockPrice(userSend,'20220531').values[0]
+            info = '收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
+                data[0], data[1], data[2], data[3], data[4])
+        else:
             info = '請輸入正確的股票代號'
         message = TextSendMessage(text=info)
 
