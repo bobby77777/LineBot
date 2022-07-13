@@ -45,7 +45,7 @@ def handle_message(event):
         print(data)
         print(type(data))
         print('======================')
-        if data == 'incorrect':
+        if type(data) == type('incorrect'):
             info = '請輸入正確的股票代號'
         else:
             data = data.values[0]
