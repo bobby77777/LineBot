@@ -30,13 +30,13 @@ def Get_StockPrice(Symbol, previousDay=1):
         # print(StockPrice[-previousDay: :])
         # if len(Date) < 8:
         # print(StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:])
-        return [stock_name, StockPrice[-previousDay: :]]
+        return [stock_name, StockPrice[-int(previousDay): :]]
     except:
         return 'incorrect'
 
 if __name__ == '__main__':
-
-    data = Get_StockPrice('2330')
+    userSend = ['2330', '5']
+    data = Get_StockPrice('2330', '5')
     print(data[0])
     for d in data[1].values:
         print('\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\

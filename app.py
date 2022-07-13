@@ -41,7 +41,6 @@ def handle_message(event):
     userSend = event.message.text
     print('======================')
     print(userSend)
-    print(userSend.split(' '))
     print('======================')
     userSend = userSend.split(' ')
     if userSend[0].isdigit() and len(userSend[0])==4:
