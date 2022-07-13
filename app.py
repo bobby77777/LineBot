@@ -42,7 +42,7 @@ def handle_message(event):
     print('======================')
     print(userSend)
     print('======================')
-    userSend = userSend.split(' ')
+    userSend = [item for item in userSend.split(' ') if item != '']
     if userSend[0].isdigit():
         if len(userSend) > 1:
             data = Get_StockPrice(userSend[0], userSend[1])
