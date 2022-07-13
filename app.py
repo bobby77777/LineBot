@@ -39,8 +39,12 @@ def callback():
 def handle_message(event):
     # event->使用者資料
     userSend = event.message.text
-    if userSend.isdigit() and len(userSend)==4:
-        data = Get_StockPrice(userSend,'20220531')
+    userSend = userSend.split(' ')
+    if userSend[0].isdigit() and len(userSend[0])==4:
+        if len(userSend) > 1:
+            data = Get_StockPrice(userSend[0], userSend[1])
+        else:
+            data = Get_StockPrice(userSend[0])
         print('======================')
         print(data)
         print(type(data))
@@ -48,10 +52,10 @@ def handle_message(event):
         if type(data) == type('incorrect'):
             info = '請輸入正確的股票代號'
         else:
-            data = data.values[0]
-            info = '收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
-                data[0], data[1], data[2], data[3], data[4])
-        
+            info = data[0]
+            for d in data[1].values:
+                info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'\
+                    .format(d[0].date(), d[1], d[2], d[3], d[4], d[5])       
             
         message = TextSendMessage(text=info)
 
