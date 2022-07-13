@@ -57,9 +57,9 @@ def handle_message(event):
         else:
             info = data[0]
             for d in data[1].values:
-                info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'\
+                info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}\n'\
                     .format(d[0].date(), d[1], d[2], d[3], d[4], d[5])       
-            
+            info = info[:-1]
         message = TextSendMessage(text=info)
 
     else:
