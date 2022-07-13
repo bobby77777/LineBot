@@ -39,7 +39,11 @@ def callback():
 def handle_message(event):
     # event->使用者資料
     userSend = event.message.text
-    userSend = userSend.split(' ')
+    # userSend = userSend.split(' ')
+    print('======================')
+    print(userSend)
+    print(userSend.split(' '))
+    print('======================')
     if userSend[0].isdigit() and len(userSend[0])==4:
         if len(userSend) > 1:
             data = Get_StockPrice(userSend[0], userSend[1])
