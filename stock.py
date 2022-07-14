@@ -10,8 +10,8 @@ def Get_StockPrice(Symbol, previousDay=1):
 
     data = requests.get(url).text
     json_data = json.loads(data)
-    stock_name = [item for item in json_data["title"].split(' ') if item != ''][-2]
     try:
+        stock_name = [item for item in json_data["title"].split(' ') if item != ''][-2]
         Stock_data = json_data['data']
         StockPrice = pd.DataFrame(Stock_data, columns = ['Date','Volume','Volume_Cash','Open','High','Low','Close','Change','Order'])
         StockPrice['Date'] = StockPrice['Date'].str.replace('/','').astype(int) + 19110000
