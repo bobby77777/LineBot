@@ -1,5 +1,7 @@
 import os
 import configparser
+import pandas as pd
+from datetime import date
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -43,9 +45,11 @@ def handle_message(event):
     print(userSend)
     print('======================')
     userSend = [item for item in userSend.split(' ') if item != '']
+    Date = str(date.today()).replace('-','')
     if userSend[0].isdigit():
         if len(userSend) > 1:
-            data = Get_StockPrice(userSend[0], userSend[1])
+            # userSend[0], data[0] -> symbol, 中文名
+            data = Get_StockPrice(userSend[0], userSend[1],Date)
         else:
             data = Get_StockPrice(userSend[0])
         print('======================')
@@ -55,6 +59,15 @@ def handle_message(event):
         if type(data) == type('incorrect'):
             info = '請輸入正確的股票代號'
         else:
+            # data[0] -> symbol
+            while len(data[1]) < int(userSend[1]):
+                month = str(int(Date[4:6])-1)
+                if month == '0':
+                    Date = str(int(Date[0:4])-1)+'1201'
+                else:
+                    month = '0'+month if len(month) < 2 else month
+                    Date = Date[0:4]+month+'01'
+                data[1] = pd.concat([Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1],data[1]])
             info = data[0]+'\n----------------'
             for d in data[1].values:
                 info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}\n'\

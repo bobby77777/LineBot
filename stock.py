@@ -1,13 +1,11 @@
-import pandas as pd
-import numpy as np
 import json
 import requests
-from datetime import date, timedelta
+import numpy as np
+import pandas as pd
+from datetime import date
 
-def Get_StockPrice(Symbol, previousDay=1):
-    Date = str(date.today()).replace('-','')
+def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')):
     url = f'https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date={Date}&stockNo={Symbol}'
-
     data = requests.get(url).text
     json_data = json.loads(data)
     try:
@@ -34,10 +32,20 @@ def Get_StockPrice(Symbol, previousDay=1):
     except:
         return 'incorrect'
 
+    
 if __name__ == '__main__':
-    userSend = ['2330', '5']
-    data = Get_StockPrice('2330', '5')
-    print(data[0])
+    userSend = ['2330', '50']
+    Date = '20220701'
+    data = Get_StockPrice(userSend[0],  userSend[1], 20220701)
+    while len(data[1]) < int(userSend[1]):
+        month = str(int(Date[4:6])-1)
+        if month == '0':
+            Date = str(int(Date[0:4])-1)+'1201'
+        else:
+            month = '0'+month if len(month) < 2 else month
+            Date = Date[0:4]+month+'01'
+        data[1] = pd.concat([Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1],data[1]])
+        # new = pd.concat(,)
     for d in data[1].values:
         print('\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
                 d[0].date(), d[1], d[2], d[3], d[4], d[5]))
