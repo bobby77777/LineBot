@@ -49,8 +49,10 @@ def handle_message(event):
     if userSend[0].isdigit():
         if len(userSend) > 1:
             # userSend[0], data[0] -> symbol, 中文名
-            data = Get_StockPrice(userSend[0], userSend[1],Date)
+            pre = userSend[1]
+            data = Get_StockPrice(userSend[0], pre,Date)
         else:
+            pre = 1
             data = Get_StockPrice(userSend[0])
         print('======================')
         print(data)
@@ -60,7 +62,7 @@ def handle_message(event):
             info = '請輸入正確的股票代號'
         else:
             # data[0] -> symbol
-            while len(data[1]) < int(userSend[1]):
+            while len(data[1]) < int(pre):
                 month = str(int(Date[4:6])-1)
                 if month == '0':
                     Date = str(int(Date[0:4])-1)+'1201'
