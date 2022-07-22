@@ -6,7 +6,7 @@ from flask import Flask, request, abort
 import pyimgur
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from stock import *
 
 # # LINE 聊天機器人的基本資料
@@ -83,7 +83,7 @@ def handle_message(event):
             uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
             image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                                             preview_image_url=uploaded_image.link)
-        # message = TextSendMessage(text=info)
+        message = TextSendMessage(text=info)
         line_bot_api.reply_message(event.reply_token, image_message)
     else:
         message = TextSendMessage(text='你可以傳個股票代碼試試')
