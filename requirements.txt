@@ -6,3 +6,5 @@ pandas
 numpy
 requests
 datetime
+mplfinance
+pyimgur

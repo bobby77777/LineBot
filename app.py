@@ -3,6 +3,7 @@ import configparser
 import pandas as pd
 from datetime import date
 from flask import Flask, request, abort
+import pyimgur
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapSendMessage
@@ -15,6 +16,7 @@ from stock import *
 
 line_bot_api = LineBotApi(os.environ["channel_access_token"])
 handler = WebhookHandler(os.environ['channel_secret'])
+imgur_id = os.environ["imgur_id"]
 
 app = Flask(__name__)
 
@@ -49,10 +51,10 @@ def handle_message(event):
     if userSend[0].isdigit():
         if len(userSend) > 1:
             # userSend[0], data[0] -> symbol, 中文名
-            pre = userSend[1]
+            pre = int(userSend[1])
             data = Get_StockPrice(userSend[0], pre,Date)
         else:
-            pre = 1
+            pre = 20
             data = Get_StockPrice(userSend[0])
         print('======================')
         print(data)
@@ -69,18 +71,24 @@ def handle_message(event):
                 else:
                     month = '0'+month if len(month) < 2 else month
                     Date = Date[0:4]+month+'01'
-                data[1] = pd.concat([Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1],data[1]])
+                data[1] = pd.concat([Get_StockPrice(userSend[0],  str(pre-len(data[1])), Date)[1],data[1]])
             info = data[0]+'\n----------------'
             for d in data[1].values:
                 info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}\n'\
-                    .format(d[0].date(), d[1], d[2], d[3], d[4], d[5])       
+                    .format(d[0].date(), d[4], d[1], d[2], d[3], d[5])       
             info = info[:-1]
-        message = TextSendMessage(text=info)
-
+            stock_graph(data[1])
+            path = "./send.png"
+            im = pyimgur.Imgur(imgur_id)
+            uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
+            image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
+                                            preview_image_url=uploaded_image.link)
+        # message = TextSendMessage(text=info)
+        line_bot_api.reply_message(event.reply_token, image_message)
     else:
         message = TextSendMessage(text='你可以傳個股票代碼試試')
-    
-    line_bot_api.reply_message(event.reply_token, message)
+
+        line_bot_api.reply_message(event.reply_token, message)
 
 
 
