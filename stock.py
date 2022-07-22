@@ -52,8 +52,6 @@ def stock_graph(stock_name, data):
     mc = mpf.make_marketcolors(up='red', down='lime', inherit=True)
     s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
     kwargs = dict(type='candle', mav=(3,6,9), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_name, style=s)
-    plt.rcparams ["font.Sans-serif"] = ["Simhei"]
-    plt.rcParams["axes.unicode_minus"] = False
     mpf.plot(data, **kwargs,savefig='send.png')
     
 if __name__ == '__main__':
