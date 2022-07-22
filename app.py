@@ -61,7 +61,8 @@ def handle_message(event):
         print(type(data))
         print('======================')
         if type(data) == type('incorrect'):
-            info = '請輸入正確的股票代號'
+            message = TextSendMessage(text='請輸入正確的股票代號')
+            
         else:
             # data[0] -> symbol
             while len(data[1]) < int(pre):
@@ -72,23 +73,28 @@ def handle_message(event):
                     month = '0'+month if len(month) < 2 else month
                     Date = Date[0:4]+month+'01'
                 data[1] = pd.concat([Get_StockPrice(userSend[0],  str(pre-len(data[1])), Date)[1],data[1]])
+            # TEXT message
             info = data[0]+'\n----------------'
-            for d in data[1].values:
-                info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}\n'\
-                    .format(d[0].date(), d[4], d[1], d[2], d[3], d[5])       
+            d = data[1][-1].values
+            info += '\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}\n'\
+                .format(d[0].date(), d[4], d[1], d[2], d[3], d[5])
             info = info[:-1]
-            stock_graph(data[1])
+            message = TextSendMessage(text=info)
+            # Image message
+            stock_graph(data[0], data[1])
             path = "./send.png"
             im = pyimgur.Imgur(imgur_id)
             uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
             image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                                             preview_image_url=uploaded_image.link)
-        message = TextSendMessage(text=info)
-        line_bot_api.reply_message(event.reply_token, image_message)
+            reply_arr = [message, image_message]
+            line_bot_api.reply_message(event.reply_token, reply_arr)
+            return 0
     else:
         message = TextSendMessage(text='你可以傳個股票代碼試試')
 
-        line_bot_api.reply_message(event.reply_token, message)
+    line_bot_api.reply_message(event.reply_token, message)
+    return 0
 
 
 
