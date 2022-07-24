@@ -19,6 +19,7 @@ handler = WebhookHandler(os.environ['channel_secret'])
 imgur_id = os.environ["imgur_id"]
 currency_bubble = json.load(open('./bubble.json'))
 app = Flask(__name__)
+im = pyimgur.Imgur(imgur_id)
 
 
 # 監聽所有來自 /callback 的 Post Request
@@ -83,7 +84,6 @@ def handle_message(event):
             # Image message
             stock_graph(userSend[0], data[1])
             path = "./send.png"
-            im = pyimgur.Imgur(imgur_id)
             uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
             image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                                             preview_image_url=uploaded_image.link)
@@ -92,6 +92,8 @@ def handle_message(event):
             return 0
     else:
         if userSend[0] == '匯率':
+            bubble_image = im.get_image('x35HtQC').link
+            currency_bubble["hero"]["url"] = bubble_image
             message = FlexSendMessage(alt_text='請選擇幣別', contents=currency_bubble)
             print('-------------------')
             print(message)
