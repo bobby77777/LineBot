@@ -1,51 +1,77 @@
 {
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Emblem-money.svg",
-    "size": "full",
-    "aspectRatio": "3:2",
-    "aspectMode": "cover"
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "請選擇幣別",
-        "weight": "bold",
-        "size": "xl",
-        "margin": "none",
-        "align": "center"
-      }
-    ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "vertical",
-    "spacing": "none",
-    "contents": [
-      {
-        "type": "button",
-        "style": "primary",
-        "height": "sm",
-        "action": {
-          "type": "postback",
-          "label": "美金 (USD)",
-          "data": "hello"
-        }
-      },
-      {
-        "type": "button",
-        "style": "secondary",
-        "height": "sm",
-        "action": {
-          "type": "postback",
-          "label": "日幣 (JPY)",
-          "data": "hello"
-        }
-      }
-    ]
-  }
+    "type": "bubble",
+    "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "text",
+                "text": "功能列表",
+                "size": "lg",
+                "color": "#ffffff"
+            }
+        ],
+        "backgroundColor": "#0066ff"
+    },
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "button",
+                "action": {
+                    "type": "postback",
+                    "label": "註冊",
+                    "data": "註冊"
+                },
+                "margin": "sm",
+                "color": "#0066ff",
+                "style": "primary"
+            },
+            {
+                "type": "button",
+                "action": {
+                    "type": "postback",
+                    "label": "簽到",
+                    "data": "簽到"
+                },
+                "color": "#0066ff",
+                "style": "primary",
+                "margin": "sm"
+            },
+            {
+                "type": "button",
+                "action": {
+                    "type": "postback",
+                    "label": "專案進度",
+                    "data": "專案進度"
+                },
+                "color": "#0066ff",
+                "margin": "sm",
+                "style": "primary"
+            },
+            {
+                "type": "button",
+                "action": {
+                    "type": "postback",
+                    "label": "本日尚未簽到",
+                    "data": "本日尚未簽到"
+                },
+                "color": "#0066ff",
+                "style": "primary",
+                "margin": "sm"
+            },
+            {
+                "type": "button",
+                "action": {
+                    "type": "postback",
+                    "label": "時刻表",
+                    "data": "時刻表"
+                },
+                "color": "#0066ff",
+                "style": "primary",
+                "margin": "sm"
+            }
+        ]
+    }
 }
