@@ -17,7 +17,7 @@ from stock import *
 line_bot_api = LineBotApi(os.environ["channel_access_token"])
 handler = WebhookHandler(os.environ['channel_secret'])
 imgur_id = os.environ["imgur_id"]
-
+currency_bubble = json.load(open('./bubble.json'))
 app = Flask(__name__)
 
 
@@ -91,7 +91,10 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, reply_arr)
             return 0
     else:
-        message = TextSendMessage(text='你可以傳個股票代碼試試')
+        if userSend[0] == '匯率':
+            message = FlexSendMessage(content=currency_bubble)
+        else:
+            message = TextSendMessage(text='你可以傳個股票代碼試試')
 
     line_bot_api.reply_message(event.reply_token, message)
     return 0

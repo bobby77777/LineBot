@@ -1,7 +1,7 @@
 Flask
 gunicorn
 line-bot-sdk
-
+bs4
 pandas
 numpy
 requests
