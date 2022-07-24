@@ -92,7 +92,7 @@ def handle_message(event):
             return 0
     else:
         if userSend[0] == '匯率':
-            message = FlexSendMessage(content=currency_bubble)
+            message = FlexSendMessage(alt_text='請選擇幣別', content=currency_bubble)
         else:
             message = TextSendMessage(text='你可以傳個股票代碼試試')
 
