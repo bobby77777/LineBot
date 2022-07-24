@@ -6,7 +6,7 @@ from flask import Flask, request, abort
 import pyimgur
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+from linebot.models import *
 from stock import *
 
 # # LINE 聊天機器人的基本資料
