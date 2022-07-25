@@ -43,10 +43,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # event->使用者資料
-    print(event)
-    # userSend = event.message.text
+    print('hihihihihihi')
+    userSend = event.message.text
     print('======================')
-    print(event.message.type)
+    print(userSend)
     print('======================')
     userSend = [item for item in userSend.split(' ') if item != '']
     Date = str(date.today()).replace('-','')
