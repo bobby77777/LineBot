@@ -43,7 +43,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # event->使用者資料
-    userSend = event.message.text
+    # userSend = event.message.text
     print('======================')
     print(event.message)
     print('======================')
