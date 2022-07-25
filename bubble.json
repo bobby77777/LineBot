@@ -2,7 +2,7 @@
   "type": "bubble",
   "hero": {
     "type": "image",
-    "url": "https://imgur.com/x35HtQC",
+    "url": "imgur",
     "size": "full",
     "aspectRatio": "4:3",
     "aspectMode": "cover"
@@ -33,7 +33,7 @@
         "action": {
           "type": "postback",
           "label": "美金 (USD)",
-          "data": "hello"
+          "data": "USD"
         }
       },
       {
@@ -43,7 +43,7 @@
         "action": {
           "type": "postback",
           "label": "日幣 (JPY)",
-          "data": "hello"
+          "data": "JPY"
         }
       }
     ],

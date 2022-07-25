@@ -45,7 +45,7 @@ def handle_message(event):
     # event->使用者資料
     userSend = event.message.text
     print('======================')
-    print(userSend)
+    print(event.message)
     print('======================')
     userSend = [item for item in userSend.split(' ') if item != '']
     Date = str(date.today()).replace('-','')
