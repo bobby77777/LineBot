@@ -44,6 +44,8 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent)
 def handle_message(event):
+    profile = line_bot_api.get_profile('<user_id>')
+    print(profile)
     # event->使用者資料
     if event.message.type != 'text':
         message = TextSendMessage(text='你可以傳個股票代碼試試')
@@ -110,7 +112,7 @@ def handle_message(event):
 def handle_message(event):
     userSend = event.postback.data.split('_')
     #Todo
-    #使用者傳訊息給機器人
+    #使用者傳訊息給機器人 -> 提示已傳訊息給機器人
     #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userSend[0]))
     
     get_halfyear(userSend[1])
