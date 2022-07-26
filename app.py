@@ -43,7 +43,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # event->使用者資料
-    print('hihihihihihi')
     userSend = event.message.text
     print('======================')
     print(userSend)
@@ -104,7 +103,19 @@ def handle_message(event):
 
     line_bot_api.reply_message(event.reply_token, message)
     return 0
+@handler.add(MessageEvent)
+def handle_message(event):
+    if event.type == 'message' and event.message.type != 'text':
+        message = TextSendMessage(text='你可以傳個股票代碼試試')
 
+    elif event.type == 'postback':
+        get_halfyear(event.postback.data)
+        path = "./currency.png"
+        uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
+        message = ImageSendMessage(original_content_url=uploaded_image.link,\
+                                        preview_image_url=uploaded_image.link)
+    line_bot_api.reply_message(event.reply_token, message)
+    return 0
 
 
 
