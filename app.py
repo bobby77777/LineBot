@@ -108,7 +108,9 @@ def handle_message(event):
     return 0
 @handler.add(PostbackEvent)
 def handle_message(event):
-    get_halfyear(event.postback.data)
+    userSend = event.postback.data.split('_')
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=data[0]))
+    get_halfyear(userSend[1])
     path = "./currency.png"
     uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
     message = ImageSendMessage(original_content_url=uploaded_image.link,\

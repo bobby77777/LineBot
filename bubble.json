@@ -34,10 +34,10 @@
           "action": {
             "type": "postback",
             "label": "美金 (USD)",
-            "data": "USD"
+            "data": "🇺🇸🇺🇸🇺🇸 美金 🇺🇸🇺🇸🇺🇸_USD"
           },
           "margin": "none",
-          "offsetBottom": "sm"
+          "offsetBottom": "xs"
         },
         {
           "type": "button",
@@ -46,7 +46,7 @@
           "action": {
             "type": "postback",
             "label": "日幣 (JPY)",
-            "data": "JPY"
+            "data": "🇯🇵🇯🇵🇯🇵 日幣 🇯🇵🇯🇵🇯🇵_JPY"
           },
           "margin": "sm"
         }

@@ -30,7 +30,7 @@ def get_halfyear(country):
     # plot graph
     plt.figure(figsize=(40,20))
     plt.grid(axis='y',linestyle='-.', color='gray')
-    plt.plot(date[::-1], money[::-1],c = "m",alpha=0.6)
+    plt.plot(date[::-1], money[::-1],c ="m",alpha=0.7)
     # 設定圖例，參數為標籤、位置
     # plt.xlabel("Date", fontsize = 12, fontweight = "bold")
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(12))
