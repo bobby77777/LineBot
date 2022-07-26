@@ -8,6 +8,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 from stock import *
+from currency import *
 
 # # LINE 聊天機器人的基本資料
 # config = configparser.ConfigParser()
