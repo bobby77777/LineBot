@@ -44,8 +44,6 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent)
 def handle_message(event):
-    profile = line_bot_api.get_profile('<user_id>')
-    print(profile)
     # event->使用者資料
     if event.message.type != 'text':
         message = TextSendMessage(text='你可以傳個股票代碼試試')
