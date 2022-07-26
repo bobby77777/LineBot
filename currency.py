@@ -28,16 +28,20 @@ def get_halfyear(country):
         i+=1
 
     # plot graph
-    plt.figure(figsize=(30,9))
+    plt.figure(figsize=(40,20))
     plt.grid(axis='y',linestyle='-.', color='gray')
-    plt.plot(date[::-1], money[::-1],c = "m",alpha=0.5)
+    plt.plot(date[::-1], money[::-1],c = "m",alpha=0.6)
     # 設定圖例，參數為標籤、位置
     # plt.xlabel("Date", fontsize = 12, fontweight = "bold")
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(12))
-    # plt.ylabel('Exchange Rate', fontsize = 12, fontweight = "bold")
+    plt.xticks(rotation=15,fontsize=20)
+    
     # plt.gca().yaxis.set_major_locator(ticker.MultipleLocator((max(money)-min(money))/8))
-    plt.title("Taiwan Bank Exchange Rate", fontsize = 18, fontweight = "bold", y = 1)
-    plt.xticks(rotation=15)
+    # plt.ylabel(country,labelpad=50, fontsize = 15, fontweight = "bold")
+    plt.yticks(fontsize=20)
+    
+    plt.title("Taiwan Bank Exchange Rate - "+country, fontsize = 25, fontweight = "bold", pad=30)
+    
     plt.savefig("currency.png")
 
     
