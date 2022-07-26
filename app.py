@@ -107,6 +107,7 @@ def handle_message(event):
     return 0
 @handler.add(MessageEvent)
 def handle_message(event):
+    print(event.type)
     if event.type == 'message' and event.message.type != 'text':
         message = TextSendMessage(text='你可以傳個股票代碼試試')
 
