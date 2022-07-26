@@ -7,8 +7,9 @@ import pyimgur
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
+from currency import get_halfyear
 from stock import *
-from currency import *
+
 
 # # LINE 聊天機器人的基本資料
 # config = configparser.ConfigParser()
@@ -110,6 +111,10 @@ def handle_message(event):
         message = TextSendMessage(text='你可以傳個股票代碼試試')
 
     elif event.type == 'postback':
+        print('------------')
+        print(type(event.postback.data))
+        print(event.postback.data)
+        print('------------')
         get_halfyear(event.postback.data)
         path = "./currency.png"
         uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
