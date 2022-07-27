@@ -109,7 +109,7 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_message(event):   
     date,money = get_halfyear(event.postback.data)
-    info = event.data+'\n----------------'
+    info = event.postback.data+'\n----------------'
     info = '\n'.join([date[idx][5:]+': '+ str(money[idx]) for idx in range(len(date))])
     message = TextSendMessage(text=info)
     path = "./currency.png"
