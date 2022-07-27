@@ -109,6 +109,9 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_message(event):   
     date,money = get_halfyear(event.postback.data)
+    print('==============')
+    print(event)
+    print('==============')
     info = event.postback.displayText+'\n----------------'
     info = '\n'.join([date[idx][5:]+': '+ str(money[idx]) for idx in range(len(date))])
     message = TextSendMessage(text=info)
