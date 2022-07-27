@@ -44,10 +44,9 @@ def get_halfyear(country):
     
     plt.savefig("currency.png")
 
-    
-    return [date[0],money[0]]
+    return [date[0:5],money[0:5]]
     
 if __name__ == '__main__':
     country = 'JPY'
     # country = 'USD'
-    get_halfyear(country)
+    print(get_halfyear(country))
