@@ -21,7 +21,7 @@ im = pyimgur.Imgur(imgur_id)
 
 
 # 監聽所有來自 /callback 的 Post Request
-@app.route(".python_file/callback", methods=['POST','GET'])
+@app.route("/callback", methods=['POST','GET'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
