@@ -7,14 +7,15 @@ import pyimgur
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
-from currency import get_halfyear
-from stock import *
+from python_file.stock import *
+from python_file.currency import *
+# from stock import *
 
 
 line_bot_api = LineBotApi(os.environ["channel_access_token"])
 handler = WebhookHandler(os.environ['channel_secret'])
 imgur_id = os.environ["imgur_id"]
-currency_bubble = json.load(open('../json_file/bubble.json'))
+currency_bubble = json.load(open('./json_file/bubble.json'))
 app = Flask(__name__)
 im = pyimgur.Imgur(imgur_id)
 
@@ -83,7 +84,7 @@ def handle_message(event):
                 message = TextSendMessage(text=info)
                 # Image message
                 stock_graph(userSend[0], data[1])
-                path = "../photos/send.png"
+                path = "./photos/send.png"
                 uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
                 image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                                                 preview_image_url=uploaded_image.link)
@@ -112,7 +113,7 @@ def handle_message(event):
     info = event.postback.data+'\n----------------\n'
     info += '\n'.join([date[idx][5:]+': '+ str(money[idx]) for idx in range(len(date))])
     message = TextSendMessage(text=info)
-    path = "../photos/currency.png"
+    path = "./photos/currency.png"
     uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
     image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                             preview_image_url=uploaded_image.link)
