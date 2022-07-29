@@ -42,7 +42,7 @@ def get_halfyear(country):
     
     plt.title("Taiwan Bank Exchange Rate - "+country, fontsize = 25, fontweight = "bold", pad=30)
     
-    plt.savefig("../photos/currency.png")
+    plt.savefig("./photos/currency.png")
 
     return [date[0:5],money[0:5]]
     
