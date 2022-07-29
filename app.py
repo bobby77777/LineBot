@@ -41,7 +41,7 @@ def callback():
 def handle_message(event):
     # event->使用者資料
     # print(event)
-    profile = line_bot_api.get_profile(even.sourcet.userId)
+    profile = line_bot_api.get_profile(event.sourcet.userId)
     print(profile.display_name)
     print(profile.user_id)
     if event.message.type != 'text':
