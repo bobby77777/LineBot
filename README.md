@@ -7,4 +7,4 @@ https://linevoom.line.me/user/_dRwvi4xqBa0g80uuqRFBTjKVUonXOa9YGd6ZV3Y
 ![stock](https://github.com/bobby77777/LineBot/blob/main/photos/stock.JPG)
 <br><br>
 輸入匯率並選擇貨幣會顯示(TWD/選擇的貨幣)的5天匯率並顯示半年的線圖
-![fx](https://github.com/bobby77777/LineBot/blob/main/photos/fx.JPG)
+![fx](https://github.com/bobby77777/LineBot/blob/main/photos/foreignEX.JPG)
