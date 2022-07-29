@@ -11,11 +11,6 @@ from currency import get_halfyear
 from stock import *
 
 
-# # LINE 聊天機器人的基本資料
-# config = configparser.ConfigParser()
-# config.read('config.ini')
-# print(config.get('line-bot', 'channel_access_token'))
-
 line_bot_api = LineBotApi(os.environ["channel_access_token"])
 handler = WebhookHandler(os.environ['channel_secret'])
 imgur_id = os.environ["imgur_id"]
@@ -45,6 +40,9 @@ def callback():
 @handler.add(MessageEvent)
 def handle_message(event):
     # event->使用者資料
+    profile = line_bot_api.get_profile(event.userId)
+    print(profile.display_name)
+    print(profile.user_id)
     if event.message.type != 'text':
         message = TextSendMessage(text='你可以傳個股票代碼試試')
     else:
@@ -88,7 +86,7 @@ def handle_message(event):
                 message = TextSendMessage(text=info)
                 # Image message
                 stock_graph(userSend[0], data[1])
-                path = "./send.png"
+                path = "./photos/send.png"
                 uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
                 image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                                                 preview_image_url=uploaded_image.link)
@@ -100,7 +98,12 @@ def handle_message(event):
                 bubble_image = im.get_image('x35HtQC').link
                 currency_bubble["hero"]["url"] = bubble_image
                 message = FlexSendMessage(alt_text='請選擇幣別', contents=currency_bubble)
-                
+            elif userSend[0] == '創作者':
+                # message = FlexSendMessage(alt_text='請選擇幣別', contents=currency_bubble)
+                message = TextSendMessage(text='W.Z\nBobby')
+            elif userSend[0] == '使用說明':
+                description = '請嘗試輸入：台股上市的股票代碼\n進階輸入:台股上市的股票代碼\" \"統計天數'
+                message = TextSendMessage(text=description)
             else:
                 message = TextSendMessage(text='你可以傳個股票代碼試試')
 
@@ -112,7 +115,7 @@ def handle_message(event):
     info = event.postback.data+'\n----------------\n'
     info += '\n'.join([date[idx][5:]+': '+ str(money[idx]) for idx in range(len(date))])
     message = TextSendMessage(text=info)
-    path = "./currency.png"
+    path = "./photos/currency.png"
     uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
     image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
                             preview_image_url=uploaded_image.link)
