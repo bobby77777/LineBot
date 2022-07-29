@@ -6,7 +6,7 @@ from linebot import LineBotApi, WebhookHandler
 Authorization_token = "Bearer"+ os.environ["channel_access_token"]
 headers = {"Authorization":Authorization_token, "Content-Type":"application/json"}
 
-body = json.load(open('./rich_menu_body.json'))
+body = json.load(open('../json/rich_menu_body.json'))
 
 req = requests.request('POST', 'https://api.line.me/v2/bot/richmenu',
                        headers=headers,data=json.dumps(body).encode('utf-8'))
