@@ -99,7 +99,7 @@ def handle_message(event):
                 # message = FlexSendMessage(alt_text='請選擇幣別', contents=currency_bubble)
                 message = TextSendMessage(text='W.Z\nBobby')
             elif userSend[0] == '使用說明':
-                description = '請嘗試輸入：台股上市的股票代碼\n進階輸入:台股上市的股票代碼\" \"統計天數'
+                description = '請嘗試輸入：\n台股上市的股票代碼\n進階輸入:\n台股上市的股票代碼  統計天數'
                 message = TextSendMessage(text=description)
             else:
                 message = TextSendMessage(text='你可以傳個股票代碼試試')
