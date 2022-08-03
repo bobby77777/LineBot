@@ -7,7 +7,7 @@ import matplotlib
 import mplfinance as mpf
 import matplotlib.pyplot as plt
 from datetime import date
-# import talib
+import talib
 
 def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')):
     headers={
