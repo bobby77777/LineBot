@@ -53,14 +53,6 @@ def stock_graph(stock_code, data):
     mc = mpf.make_marketcolors(up='r', down='g', inherit=True)
     s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
     kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_code, style=s)
-    K, D, J = matix[:, 9], matix[:, 10], matix[:, 11] # 取出KDJ值
-    ax4.axhline(0, ls='-', c='g', lw=0.5) # 水平线
-    ax4.yaxis.set_ticks_position('right') # y轴显示在右边
-    ax4.plot(xdates, K, c='y', label='K') # 绘制K线
-    ax4.plot(xdates, D, c='c', label='D') # 绘制D线
-    ax4.plot(xdates, J, c='m', label='J') # 绘制J线
-    ax4.legend(loc='upper right') # 图例放置于右上角
-    ax4.grid(True) # 画网格
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
     
 if __name__ == '__main__':
