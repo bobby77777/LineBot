@@ -7,6 +7,7 @@ import matplotlib
 import mplfinance as mpf
 import matplotlib.pyplot as plt
 from datetime import date
+
 headers={
         'accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
         'accept-encoding': 'gzip, deflate, br',
@@ -25,7 +26,7 @@ def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')
     data = requests.get(url,headers=headers).text
     json_data = json.loads(data)
     try:
-        stock_name = [item for item in json_data["title"].split(' ') if item != ''][-2]
+        stock_code = [item for item in json_data["title"].split(' ') if item != ''][-2]
         Stock_data = json_data['data']
         StockPrice = pd.DataFrame(Stock_data, columns = ['Date','Volume','Volume_Cash','Open','High','Low','Close','Change','Order'])
         StockPrice['Date'] = StockPrice['Date'].str.replace('/','').astype(int) + 19110000
@@ -44,15 +45,15 @@ def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')
         # print(StockPrice[-previousDay: :])
         # if len(Date) < 8:
         # print(StockPrice.loc[Date[:4]+'-'+Date[4:6]+'-'+Date[-2:]:])
-        return [stock_name, StockPrice[-int(previousDay): :]]
+        return [stock_code, StockPrice[-int(previousDay): :]]
     except:
         return 'incorrect'
 
-def stock_graph(stock_name, data):
+def stock_graph(stock_code, data):
     data = data.set_index('Date', drop = True)
-    mc = mpf.make_marketcolors(up='red', down='lime', inherit=True)
+    mc = mpf.make_marketcolors(up='r', down='g', inherit=True)
     s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
-    kwargs = dict(type='candle', mav=(3,6,9), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_name, style=s)
+    kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_code, style=s)
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
 
 def top20():

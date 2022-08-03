@@ -9,3 +9,4 @@ datetime
 matplotlib
 mplfinance
 pyimgur
+# talib
