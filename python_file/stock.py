@@ -57,7 +57,7 @@ def stock_graph(stock_code, data):
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
 
 def top5():
-    info = '  TOP 5 (股數排行) \n===================\n'
+    info = '    TOP 5 (股數排行) \n===================\n'
     url = 'https://www.twse.com.tw/exchangeReport/MI_INDEX20?response=csv&date=' + str(date.today()).replace('-','')
     global headers
     
