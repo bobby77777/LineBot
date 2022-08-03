@@ -54,7 +54,7 @@ def stock_graph(stock_name, stock_code, data):
     data = data.set_index('Date', drop = True)
     mc = mpf.make_marketcolors(up='r', down='g', inherit=True)
     # s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
-    s = mpf.make_mpf_style(base_mpf_style='yahoo', rc={'font.family': 'SimHei'})
+    s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc, rc={'font.family': 'SimHei'})
     # kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_code, style=s)
     # kwargs = dict(type='candle', mav=(5,20), volume=True, title='\n\n'+stock_code, style=s)
     kwargs = dict(type='candle', mav=(5,20), volume=True, title='\n\n'+stock_name, style=s)
