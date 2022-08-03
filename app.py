@@ -83,7 +83,7 @@ def handle_message(event):
                 info = info[:-1]
                 message = TextSendMessage(text=info)
                 # Image message
-                stock_graph(data[0], userSend[0], data[1])
+                stock_graph(userSend[0], data[1])
                 path = "./photos/send.png"
                 uploaded_image = im.upload_image(path, title="Uploaded with PyImgur")
                 image_message = ImageSendMessage(original_content_url=uploaded_image.link,\
