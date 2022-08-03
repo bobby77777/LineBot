@@ -7,19 +7,20 @@ import matplotlib
 import mplfinance as mpf
 import matplotlib.pyplot as plt
 from datetime import date
+headers={
+        'accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cookie': '_tb_token_=berT80V49uJ9PFEJKGPI; cna=IhV+FpiDqRsCAXE54OSIgfFP; v=0; t=bb1c685b877ff64669f99c9dade7042c; cookie2=1e5103120f9886062722c86a5fad8c64; uc1=cookie14=UoTbm8P7LhIRQg%3D%3D; isg=BJWVw-e2ZCOuRUDfqsuI4YF0pJFFPHuu_ffxbBc6UYxbbrVg3-JZdKMoODL97mFc; l=dBMDiW9Rqv8wgDSFBOCiVZ9JHt_OSIRAguWfypeMi_5Zl681GgQOkUvZ8FJ6VjWftBTB4tm2-g29-etki6jgwbd6TCNQOxDc.',
+        'referer': 'https://item-paimai.taobao.com/pmp_item/609160317276.htm?s=pmp_detail&spm=a213x.7340941.2001.61.1aec2cb6RKlKoy',
+        'sec-fetch-mode': 'cors',
+        "sec-fetch-site": 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest'
+        }
 
 def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')):
-    headers={
-    'accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
-    'accept-encoding': 'gzip, deflate, br',
-    'accept-language': 'zh-CN,zh;q=0.9',
-    'cookie': '_tb_token_=berT80V49uJ9PFEJKGPI; cna=IhV+FpiDqRsCAXE54OSIgfFP; v=0; t=bb1c685b877ff64669f99c9dade7042c; cookie2=1e5103120f9886062722c86a5fad8c64; uc1=cookie14=UoTbm8P7LhIRQg%3D%3D; isg=BJWVw-e2ZCOuRUDfqsuI4YF0pJFFPHuu_ffxbBc6UYxbbrVg3-JZdKMoODL97mFc; l=dBMDiW9Rqv8wgDSFBOCiVZ9JHt_OSIRAguWfypeMi_5Zl681GgQOkUvZ8FJ6VjWftBTB4tm2-g29-etki6jgwbd6TCNQOxDc.',
-    'referer': 'https://item-paimai.taobao.com/pmp_item/609160317276.htm?s=pmp_detail&spm=a213x.7340941.2001.61.1aec2cb6RKlKoy',
-    'sec-fetch-mode': 'cors',
-    "sec-fetch-site": 'same-origin',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
-    'x-requested-with': 'XMLHttpRequest'
-    }
+    global headers
     url = f'https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date={Date}&stockNo={Symbol}'
     data = requests.get(url,headers=headers).text
     json_data = json.loads(data)
@@ -53,7 +54,29 @@ def stock_graph(stock_name, data):
     s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
     kwargs = dict(type='candle', mav=(3,6,9), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_name, style=s)
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
+
+def top20():
+    info = '   TOP 20 (股數排行) \n========================\n'
+    url = 'https://www.twse.com.tw/exchangeReport/MI_INDEX20?response=csv&date=' + str(date.today()).replace('-','')
+    global headers
     
+    read = requests.get(url,headers=headers).text
+    data = read.replace('=','').replace('\r','').split('\n')[2:-6]
+
+    for d in data:
+        d = [item for item in d.split('\"') if item != '' and item != ',']
+        for i in range(5):
+            if i == 4:
+                info += '\n'
+            elif i == 0:
+                info += d[i]+ '. '
+            else:
+                if d[i].find(',') != -1:
+                    info += d[i][:d[i].find(',')+2].replace(',','.') + 'M'
+                else:
+                    info += d[i] + ' '
+    return info[:-1]
+
 if __name__ == '__main__':
     userSend = ['2330', '20']
     Date = '20220701'
