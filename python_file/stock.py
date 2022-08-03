@@ -49,9 +49,10 @@ def Get_StockPrice(Symbol, previousDay=1, Date=str(date.today()).replace('-','')
 
 def stock_graph(stock_name, data):
     data = data.set_index('Date', drop = True)
-    mc = mpf.make_marketcolors(up='red', down='lime', inherit=True)
+    mc = mpf.make_marketcolors(up='r', down='g', inherit=True)
     s = mpf.make_mpf_style(base_mpf_style='yahoo', marketcolors=mc)
-    kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_name, style=s)
+    # kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_name, style=s)
+    kwargs = dict(type='candle', mav=(5,20), volume=True, title='\n\n'+stock_name, style=s)
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
     
 if __name__ == '__main__':
