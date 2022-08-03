@@ -56,13 +56,13 @@ def stock_graph(stock_code, data):
     kwargs = dict(type='candle', mav=(5,20), volume=True, panel_ratios=(3,1), figratio=(20,10), figscale=0.75, title='\n\n'+stock_code, style=s)
     mpf.plot(data, **kwargs,savefig='./photos/send.png')
 
-def top20():
-    info = '   TOP 20 (股數排行) \n========================\n'
+def top5():
+    info = '  TOP 5 (股數排行) \n===================\n'
     url = 'https://www.twse.com.tw/exchangeReport/MI_INDEX20?response=csv&date=' + str(date.today()).replace('-','')
     global headers
     
     read = requests.get(url,headers=headers).text
-    data = read.replace('=','').replace('\r','').split('\n')[2:-6]
+    data = read.replace('=','').replace('\r','').split('\n')[2:7]
 
     for d in data:
         d = [item for item in d.split('\"') if item != '' and item != ',']
@@ -94,4 +94,5 @@ if __name__ == '__main__':
     # for d in data[1].values:
     #     print('\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
     #             d[0].date(), d[1], d[2], d[3], d[4], d[5]))
-    stock_graph('2334',data[1])
+    # stock_graph('2334',data[1])
+    print(top5())

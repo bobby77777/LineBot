@@ -103,7 +103,7 @@ def handle_message(event):
                 description = '請嘗試輸入：\n台股上市的股票代碼\neg. 2330\n\n進階輸入:\n台股上市的股票代碼  統計天數\neg. 2330 100'
                 message = TextSendMessage(text=description)
             elif userSend[0] == '今日排行':
-                info = top20()
+                info = top5()
                 message = TextSendMessage(text=info)
             else:
                 message = TextSendMessage(text='你可以傳個股票代碼試試')
