@@ -81,6 +81,9 @@ def handle_message(event):
                         month = '0'+month if len(month) < 2 else month
                         Date = Date[0:4]+month+'01'
                     if type(Get_StockPrice(userSend[0],  str(pre-len(data[1])))) != str():
+                        print('@@@@@@@@@@@@@@@@@@')
+                        print(Get_StockPrice(userSend[0],  str(pre-len(data[1]))))
+                        print('@@@@@@@@@@@@@@@@@@')
                         data[1] = pd.concat([Get_StockPrice(userSend[0],  str(pre-len(data[1])), Date)[1],data[1]])
                 # TEXT message
                 info = data[0]+'\n----------------'
