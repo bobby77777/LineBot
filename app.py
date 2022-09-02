@@ -74,6 +74,7 @@ def handle_message(event):
                 pre_d = 0
                 while len(data[1]) < int(pre) and pre_d != len(data[1]):
                     print(pre_d)
+                    print(len(data[1]))
                     pre_d = len(data[1])
                     month = str(int(Date[4:6])-1)
                     if month == '0':
