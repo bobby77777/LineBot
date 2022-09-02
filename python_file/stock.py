@@ -77,9 +77,9 @@ def top5():
     return info[:-1]
 
 if __name__ == '__main__':
-    userSend = ['2330', '20']
+    userSend = ['6830', '5']
     Date = '20220701'
-    data = Get_StockPrice(userSend[0],  userSend[1], 20220701)
+    data = Get_StockPrice(userSend[0],  userSend[1], '20220902')
     while len(data[1]) < int(userSend[1]):
         month = str(int(Date[4:6])-1)
         if month == '0':
@@ -87,10 +87,15 @@ if __name__ == '__main__':
         else:
             month = '0'+month if len(month) < 2 else month
             Date = Date[0:4]+month+'01'
-        data[1] = pd.concat([Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1],data[1]])
+        if type(Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1]) != type(str()):
+            print('------')
+            print(type(Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1]))
+            print('------')
+            data[1] = pd.concat([Get_StockPrice(userSend[0],  str(int(userSend[1])-len(data[1])), Date)[1],data[1]])
+        else: break
         # new = pd.concat(,)
     # for d in data[1].values:
     #     print('\n{}\n收盤:{}\n開盤:{}\n最高價:{}\n最低價:{}\n交易量(張):{}'.format(\
     #             d[0].date(), d[1], d[2], d[3], d[4], d[5]))
     # stock_graph('2334',data[1])
-    print(top5())
+    # print(top5())
