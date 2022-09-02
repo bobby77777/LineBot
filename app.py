@@ -36,6 +36,10 @@ def callback():
         abort(400)
     return 'OK'
     
+@handler.add(JoinEvent)
+def handle_join(event):
+    newcoming_text = "查詢上市臺股資訊問我就對了！！"
+    line_bot_api.reply_message(event.reply_token, TextMessage(text=newcoming_text))
 
 # 處理訊息
 @handler.add(MessageEvent)
@@ -67,7 +71,8 @@ def handle_message(event):
                 
             else:
                 # data[0] -> symbol
-                while len(data[1]) < int(pre):
+                while len(data[1]) < int(pre) and pre_d != data[1]:
+                    pre_d = data[1]
                     month = str(int(Date[4:6])-1)
                     if month == '0':
                         Date = str(int(Date[0:4])-1)+'1201'
